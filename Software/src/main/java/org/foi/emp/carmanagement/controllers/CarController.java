@@ -38,14 +38,11 @@ public class CarController {
 
     @DeleteMapping("/{carId}")
     public ResponseEntity<String> deleteCar(@PathVariable("carId") Long id) {
-        try {
+        if (this.carServices.checkIfCarExists(id)) {
             this.carServices.deleteCar(id);
-        } catch (final Exception e) {
-            log.error("cannot delete car!", e.getMessage());
+            return new ResponseEntity<>("Car has been deleted!", HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Car doesn t exist in database and can t deleted it!", HttpStatus.NOT_FOUND);
         }
-
-        return new ResponseEntity<>("Car has been deleted!", HttpStatus.OK);
     }
-
 }
-

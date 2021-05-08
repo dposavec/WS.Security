@@ -30,19 +30,30 @@ public class CarServices {
     }
 
     public HttpStatus updateCar(Car parsedCar) {
+
         final Optional<Car> optionalCar = this.repo.findById(parsedCar.getId());
+
         if (optionalCar.isPresent()) {
-            final Car car = optionalCar.get();
-            car.setHp(parsedCar.getHp());
-            car.setKw(parsedCar.getKw());
-            car.setName(parsedCar.getName());
-            car.setPrice(parsedCar.getPrice());
-            car.setYearModel(parsedCar.getYearModel());
-            this.repo.save(car);
+            final Car cars = optionalCar.get();
+            final Car updatedCar = this.updateExistingCar(cars, parsedCar);
+            this.repo.save(updatedCar);
             return HttpStatus.OK;
         } else {
             return HttpStatus.NOT_FOUND;
         }
+    }
 
+    private Car updateExistingCar(Car cars, Car parsedCar) {
+
+        cars.setHp(parsedCar.getHp());
+        cars.setKw(parsedCar.getKw());
+        cars.setName(parsedCar.getName());
+        cars.setPrice(parsedCar.getPrice());
+        cars.setYearModel(parsedCar.getYearModel());
+        return cars;
+    }
+
+    public boolean checkIfCarExists(Long id) {
+        return this.repo.existsCarById(id);
     }
 }
