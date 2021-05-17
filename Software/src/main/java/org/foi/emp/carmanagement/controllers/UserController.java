@@ -40,10 +40,9 @@ public class UserController {
     public ResponseEntity<String> deleteUser(@PathVariable("userId") Long id) {
         if (this.userServices.checkIfUserExists(id)) {
             this.userServices.deleteUser(id);
-            return new ResponseEntity<>("User has been deleted",HttpStatus.OK);
+            return new ResponseEntity<>("User has been deleted", HttpStatus.OK);
         } else {
             return new ResponseEntity<>("User doesn t exist in database and can t been deleted!", HttpStatus.NOT_FOUND);
         }
     }
-
 }

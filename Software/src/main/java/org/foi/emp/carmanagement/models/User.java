@@ -20,7 +20,7 @@ public class User {
     private long id;
     private String name;
     private String surname;
-    private String education;
+    private String email;
 
     @JsonFormat(pattern="dd/MM/yyyy")
     private Date dateBirth;

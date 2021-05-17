@@ -49,7 +49,7 @@ public class UserServices {
         user.setName(parsedUser.getName());
         user.setSurname(parsedUser.getSurname());
         user.setDateBirth(parsedUser.getDateBirth());
-        user.setEducation(parsedUser.getEducation());
+        user.setEmail(parsedUser.getEmail());
         return user;
     }
 
