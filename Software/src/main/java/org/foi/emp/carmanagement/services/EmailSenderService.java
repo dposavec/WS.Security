@@ -11,13 +11,12 @@ public class EmailSenderService {
     @Autowired
     private JavaMailSender javaMailSender;
 
-    public void sendSimpleEmail(final String toEmail, final String body, final String subject){
-        SimpleMailMessage mailMessage=new SimpleMailMessage();
+    public void sendSimpleEmail(final String toEmail, final String body, final String subject) {
+        SimpleMailMessage mailMessage = new SimpleMailMessage();
         mailMessage.setFrom("dominik.posavec27@gmail.com");
         mailMessage.setTo(toEmail);
         mailMessage.setText(body);
         mailMessage.setSubject(subject);
-
         javaMailSender.send(mailMessage);
         System.out.println("POSLAN");
     }
