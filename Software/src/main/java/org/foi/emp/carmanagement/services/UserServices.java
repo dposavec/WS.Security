@@ -1,6 +1,7 @@
 package org.foi.emp.carmanagement.services;
 
 
+import org.apache.catalina.User;
 import org.foi.emp.carmanagement.models.UserModel;
 import org.foi.emp.carmanagement.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @Transactional
@@ -23,6 +25,7 @@ public class UserServices {
     }
 
     public UserModel addNewUser(UserModel userModel) {
+        userModel.setActivationCode(UUID.randomUUID().toString());
         return this.userRepo.save(userModel);
     }
 
@@ -63,5 +66,9 @@ public class UserServices {
 
     public UserModel getUserModelByUsername(String username){
         return this.userRepo.getUserModelByUsername(username);
+    }
+
+    public Optional<UserModel> getUserById(Long id){
+        return this.userRepo.findById(id);
     }
 }
