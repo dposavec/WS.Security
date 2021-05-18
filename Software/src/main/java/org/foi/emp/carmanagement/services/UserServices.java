@@ -1,7 +1,7 @@
 package org.foi.emp.carmanagement.services;
 
 
-import org.foi.emp.carmanagement.models.User;
+import org.foi.emp.carmanagement.models.UserModel;
 import org.foi.emp.carmanagement.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,42 +18,50 @@ public class UserServices {
     @Autowired
     private UserRepository userRepo;
 
-    public List<User> getAllUsers() {
+    public List<UserModel> getAllUsers() {
         return this.userRepo.findAll();
     }
 
-    public User addNewUser(User user) {
-        return this.userRepo.save(user);
+    public UserModel addNewUser(UserModel userModel) {
+        return this.userRepo.save(userModel);
     }
 
     public void deleteUser(Long id) {
         this.userRepo.deleteUsersById(id);
     }
 
-    public HttpStatus updateUser(User parsedUser) {
+    public HttpStatus updateUser(UserModel parsedUserModel) {
 
-        final Optional<User> optionalUser = this.userRepo.findById(parsedUser.getId());
+        final Optional<UserModel> optionalUser = this.userRepo.findById(parsedUserModel.getId());
 
         if (optionalUser.isPresent()) {
-            final User users = optionalUser.get();
-            final User updatedUser = this.updateExistingUser(users, parsedUser);
-            this.userRepo.save(updatedUser);
+            final UserModel users = optionalUser.get();
+            final UserModel updatedUserModel = this.updateExistingUser(users, parsedUserModel);
+            this.userRepo.save(updatedUserModel);
             return HttpStatus.OK;
         } else {
             return HttpStatus.NOT_FOUND;
         }
     }
 
-    private User updateExistingUser(User user, User parsedUser) {
+    private UserModel updateExistingUser(UserModel userModel, UserModel parsedUserModel) {
 
-        user.setName(parsedUser.getName());
-        user.setSurname(parsedUser.getSurname());
-        user.setDateBirth(parsedUser.getDateBirth());
-        user.setEmail(parsedUser.getEmail());
-        return user;
+        userModel.setName(parsedUserModel.getName());
+        userModel.setSurname(parsedUserModel.getSurname());
+        userModel.setDateBirth(parsedUserModel.getDateBirth());
+        userModel.setEmail(parsedUserModel.getEmail());
+        return userModel;
     }
 
     public boolean checkIfUserExists(Long id) {
         return this.userRepo.existsUserById(id);
+    }
+
+    public boolean checkIfUserExists(String username){
+        return this.userRepo.existsUserModelsByUsername(username);
+    }
+
+    public UserModel getUserModelByUsername(String username){
+        return this.userRepo.getUserModelByUsername(username);
     }
 }
