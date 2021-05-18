@@ -2,7 +2,7 @@ package org.foi.emp.carmanagement.controllers;
 
 
 import lombok.extern.slf4j.Slf4j;
-import org.foi.emp.carmanagement.models.User;
+import org.foi.emp.carmanagement.models.UserModel;
 import org.foi.emp.carmanagement.services.UserServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,19 +20,19 @@ public class UserController {
     private UserServices userServices;
 
     @GetMapping
-    public ResponseEntity<List<User>> getAllUsers() {
+    public ResponseEntity<List<UserModel>> getAllUsers() {
         return new ResponseEntity<>(this.userServices.getAllUsers(), HttpStatus.OK);
     }
 
     @PostMapping("/add")
-    public ResponseEntity<User> addNewUser(@RequestBody User parsedUser) {
-        User user = this.userServices.addNewUser(parsedUser);
-        return new ResponseEntity<>(user, HttpStatus.OK);
+    public ResponseEntity<UserModel> addNewUser(@RequestBody UserModel parsedUserModel) {
+        UserModel userModel = this.userServices.addNewUser(parsedUserModel);
+        return new ResponseEntity<>(userModel, HttpStatus.OK);
     }
 
     @PostMapping("/update")
-    public ResponseEntity<HttpStatus> updateUser(@RequestBody User parsedUser) {
-        HttpStatus status = this.userServices.updateUser(parsedUser);
+    public ResponseEntity<HttpStatus> updateUser(@RequestBody UserModel parsedUserModel) {
+        HttpStatus status = this.userServices.updateUser(parsedUserModel);
         return new ResponseEntity<>(status);
     }
 
