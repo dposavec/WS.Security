@@ -27,6 +27,11 @@ public class UserModel {
     private String email;
     private String username;
     private String password;
+    private String activationCode;
+    private boolean activated;
+
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    private Date activationDate;
 
     @JsonFormat(pattern = "dd/MM/yyyy")
     private Date dateBirth;
