@@ -34,7 +34,7 @@ public class UserController {
     @PostMapping("/add")
     public ResponseEntity<UserModel> addNewUser(@RequestBody UserModel parsedUserModel) {
         UserModel userModel = this.userServices.addNewUser(parsedUserModel);
-        this.emailSenderService.sendActivationEmail(userModel.getEmail(),userModel,"Account activation");
+        this.emailSenderService.sendActivationEmail(userModel.getEmail(), userModel, "Account activation");
         return new ResponseEntity<>(userModel, HttpStatus.OK);
     }
 
@@ -58,7 +58,7 @@ public class UserController {
     public ResponseEntity<String> activateUser(@PathVariable("userId") Long id, @PathVariable("activationCode") String activationCode) {
         Optional<UserModel> userModel = this.userServices.getUserById(id);
         if (userModel.isPresent() && StringUtils.equals(activationCode, userModel.get().getActivationCode())) {
-            UserModel model=userModel.get();
+            final UserModel model = userModel.get();
             model.setActivated(true);
             model.setActivationDate(new Date());
             this.userServices.updateUser(model);

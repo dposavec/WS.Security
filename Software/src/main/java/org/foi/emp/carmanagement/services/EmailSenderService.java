@@ -27,7 +27,6 @@ public class EmailSenderService {
             mailMessage.setFrom("kingdoko@gmail.com");
             mailMessage.setSubject(subject);
             javaMailSender.send(mimeMessage);
-            System.out.println("POSLAN");
         } catch (MessagingException e) {
             log.error("Neuspjesno slanje!", e);
         }
@@ -43,7 +42,6 @@ public class EmailSenderService {
             mailMessage.setFrom("kingdoko@gmail.com");
             mailMessage.setSubject(subject);
             javaMailSender.send(mimeMessage);
-            System.out.println("POSLAN");
         } catch (MessagingException e) {
             log.error("Neuspjesno slanje!", e);
         }
